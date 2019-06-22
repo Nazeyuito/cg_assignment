@@ -86,7 +86,7 @@ typedef struct flatWall {
 	float length;
 }flatWall;
 //flatWall‚Ì‰Šúİ’è
-void setFlatWall(float *s_cood, float *e_cood, float e, Wall *wall);
+void setFlatWall(float *s_cood, float *e_cood, float e, flatWall *wall);
 //flatWall‚Ì•`‰æ
-void drawFlatWall(Wall wall);
+void drawFlatWall(flatWall wall);
 
