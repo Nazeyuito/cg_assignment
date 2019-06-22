@@ -6,7 +6,6 @@
 #include "myObject.h"
 
 #define KEY_ESC 27
-#define G 9.80665							/* 重力加速度 m/s/s  */
 #define TICK	1.0e-3						/* 1msecのサンプリングタイム */
 
 //視点設定用パラメータ
