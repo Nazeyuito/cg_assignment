@@ -189,6 +189,5 @@ void drawFlatWall(flatWall wall) {
 	glRotatef(0.0, 0.0, 0.0, 0.0);//2“_‚Æ²‚ª‚È‚·Šp‚ğİ’è‚µ‚Ä‰ñ“]
 	glutSolidCube(WALL_WIDTH);
 	glPopMatrix();
-
 }
 
