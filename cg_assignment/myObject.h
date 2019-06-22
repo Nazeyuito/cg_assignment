@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include "myUtility.h"
 #define G 9.80665				
 #define M_PI 3.141592653589793238
 
