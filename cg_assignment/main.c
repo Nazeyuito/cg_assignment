@@ -43,6 +43,7 @@ void setShade(float *diffuse, float *specular, float *ambient, float shininess) 
 
 Stage stage;
 Ball ball;
+flatWall wall;
 
 void setWorld() {
 	double stageSize[] = { 20.0,20.0,2.0 };
