@@ -166,3 +166,28 @@ void drawWall(Wall wall) {
 	glPopMatrix();
 }
 
+
+//flatWall‚Ì‰ŠúÝ’è
+void setFlatWall(float *s_cood, float *e_cood, float e, flatWall *wall) {
+	wall->w_cood[start][x] = s_cood[x];
+	wall->w_cood[start][y] = s_cood[y];
+	wall->w_cood[start][z] = s_cood[z];
+	wall->w_cood[end][x] = e_cood[x];
+	wall->w_cood[end][y] = e_cood[y];
+	wall->w_cood[end][z] = e_cood[z];
+	wall->e = e;
+	wall->center[x] = (wall->w_cood[start][x] + wall->w_cood[end][x]) / 2;
+	wall->center[y] = (wall->w_cood[start][y] + wall->w_cood[end][y]) / 2;
+	wall->center[z] = (wall->w_cood[start][z] + wall->w_cood[end][z]) / 2;
+	//wall->length = fabs(());
+}
+//flatWall‚Ì•`‰æ
+void drawFlatWall(flatWall wall) {
+	glPushMatrix();
+	glTranslatef(wall.center[x], wall.center[x], wall.center[x]);
+	glScalef(0, 0, 0);
+	glutSolidCube(WALL_WIDTH);
+	glPopMatrix();
+
+}
+

@@ -4,6 +4,7 @@
 #include <GL/glu.h>
 #include <math.h>
 #include "myObject.h"
+#include "myUtility.h"
 
 #define KEY_ESC 27
 #define TICK	1.0e-3						/* 1msecのサンプリングタイム */
@@ -74,14 +75,14 @@ void display(void)
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glPushMatrix();
-	polarview(20.0, 0.0, 0.0, 0.0);
+	polarview(20.0, 0.0, 0.0, 0.0);//視点
 	glEnable(GL_DEPTH_TEST);
 
 	setShade(diffuse, specular, ambient, shininess);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_NORMALIZE);
 
-	//test
+	//モノを置くよ
 	drawWorld();
 
 	glDisable(GL_NORMALIZE);

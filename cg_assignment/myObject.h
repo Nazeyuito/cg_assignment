@@ -78,3 +78,14 @@ void stepWall(Wall *wall);
 //Wall‚Ì•`‰æ
 void drawWall(Wall wall);
 
+typedef struct flatWall {
+	float w_cood[2][3];
+	float e;
+	float center[3];
+	float length;
+}flatWall;
+//flatWall‚Ì‰Šúİ’è
+void setFlatWall(float *s_cood, float *e_cood, float e, Wall *wall);
+//flatWall‚Ì•`‰æ
+void drawFlatWall(Wall wall);
+
