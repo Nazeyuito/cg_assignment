@@ -42,13 +42,23 @@ void setShade(float *diffuse, float *specular, float *ambient, float shininess) 
 }
 
 Stage stage;
+flatWall wall;
 Ball ball;
 
+void setWalls() {
+	float s_cood[] = { -10.0,0.0,0.0 };
+	float e_cood[] = { 10.0,0.0,0.0 };
+	float e = 1.0;
+	setFlatWall(s_cood, e_cood, e, &wall);
+}
+
 void setWorld() {
-	double stageSize[] = { 20.0,20.0,2.0 };
-	double startCood[] = { 0.0,0.0,0.0 };
-	double startSpeed[] = { 0.0,0.0,0.0 };
+	float stageSize[] = { 20.0,20.0,2.0 };
+	float startCood[] = { 0.0,0.0,0.0 };
+	float startSpeed[] = { 0.0,0.0,0.0 };
+
 	setStage(stageSize, 0.6, &stage);
+	setWalls();
 	setBall(startCood, 1.0, 1.0, startSpeed, startCood, &ball);
 }
 
@@ -60,6 +70,7 @@ void drawWorld() {
 	float view[] = { 0.0,0.0,0.0 };
 	getView(distance, elevation, azimuth, view);
 	drawStage(stage);
+	drawFlatWall(wall);
 	for (int i = 0; i < 30; i++) {
 		updateBall(view, &ball, stage);
 	}

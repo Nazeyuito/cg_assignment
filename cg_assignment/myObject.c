@@ -7,11 +7,11 @@ void getView(float distance, float elevation, float azimuth, float *view) {
 }
 
 //Stage‚Ìİ’è
-void setStage(double *size, double e, Stage *stage) {
+void setStage(float *size, float e, Stage *stage) {
 	stage->stageSize[x] = size[x]; stage->stageSize[y] = size[y]; stage->stageSize[z] = size[z];
 	stage->e = e;
 }
-//Stage‚Ì•`Ê
+//Stage‚Ìa
 void drawStage(Stage stage) {
 	glPushMatrix();
 	//floor
@@ -97,7 +97,7 @@ void reflection(float *ref, float b_cood, float b_speed, float *range, float e) 
 	return;
 }
 //Ball‚Ì‰Šúİ’è
-void setBall(double *cood, double diag, double mass, double *speed, double *nxtcood, Ball *ball) {
+void setBall(float *cood, float diag, float mass, float *speed, float*nxtcood, Ball *ball) {
 	ball->b_cood[x] = cood[x]; ball->b_cood[y] = cood[y]; ball->b_cood[z] = cood[z];
 	ball->b_diag = diag;
 	ball->b_mass = mass;
@@ -176,17 +176,18 @@ void setFlatWall(float *s_cood, float *e_cood, float e, flatWall *wall) {
 	wall->w_cood[end][y] = e_cood[y];
 	wall->w_cood[end][z] = e_cood[z];
 	wall->e = e;
-	wall->center[x] = (wall->w_cood[start][x] + wall->w_cood[end][x]) / 2;
-	wall->center[y] = (wall->w_cood[start][y] + wall->w_cood[end][y]) / 2;
-	wall->center[z] = (wall->w_cood[start][z] + wall->w_cood[end][z]) / 2;
-	wall->length = dintancePoints(s_cood, e_cood, 3);
+	wall->w_center[x] = (wall->w_cood[start][x] + wall->w_cood[end][x]) / 2;
+	wall->w_center[y] = (wall->w_cood[start][y] + wall->w_cood[end][y]) / 2;
+	wall->w_center[z] = (wall->w_cood[start][z] + wall->w_cood[end][z]) / 2;
+	wall->w_length = dintancePoints(s_cood, e_cood, 3);
+	wall->w_phi = flatPhi(s_cood, e_cood);
 }
 //flatWall‚Ì•`‰æ
 void drawFlatWall(flatWall wall) {
 	glPushMatrix();
-	glTranslatef(wall.center[x], wall.center[x], wall.center[x]);
-	glScalef(0, 0, 0);//‚ ‚é²‚É‚Â‚¢‚Älength‚¾‚¯ˆø‚«‰„‚Î‚·
-	glRotatef(0.0, 0.0, 0.0, 0.0);//2“_‚Æ²‚ª‚È‚·Šp‚ğİ’è‚µ‚Ä‰ñ“]
+	glTranslatef(wall.w_center[x], wall.w_center[y], wall.w_center[z]);
+	glScalef(1.0, wall.w_length, 1.0);//‚ ‚é²‚É‚Â‚¢‚Älength‚¾‚¯ˆø‚«‰„‚Î‚·
+	glRotatef(wall.w_phi, 0.0, 1.0, 0.0);//2“_‚Æ²‚ª‚È‚·Šp‚ğİ’è‚µ‚Ä‰ñ“](y)
 	glutSolidCube(WALL_WIDTH);
 	glPopMatrix();
 }
