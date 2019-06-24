@@ -112,8 +112,8 @@ void updateBall(float *view, Ball *ball, Stage stage) {
 	float range[3][2] = { {-xRange,xRange},{-yRange,yRange},{0.0,0.0} };
 	//printf("view : %3f, %3f, %3f : ", view[r], view[theta], view[phi]);
 	//‘¬“x‚ÌŒˆ’è
-	ball->b_speed[x] += G * sin(view[phi]) * 0.001;
-	ball->b_speed[y] += G * sin(view[theta]) * 0.001;
+	ball->b_speed[x] += G * sin(view[phi]) * 0.00001;
+	ball->b_speed[y] += G * sin(view[theta]) * 0.00001;
 	ball->b_speed[z] = 0.0;
 	//printf("speed : %3f, %3f, %3f\t", ball->b_speed[x], ball->b_speed[y], ball->b_speed[z]);
 
@@ -126,9 +126,9 @@ void updateBall(float *view, Ball *ball, Stage stage) {
 	ball->b_nxtcood[z] = ref[cood]; ball->b_speed[z] = ref[speed];
 
 	ball->b_cood[x] = ball->b_nxtcood[x]; ball->b_cood[y] = ball->b_nxtcood[y]; ball->b_cood[z] = ball->b_nxtcood[z];
-	printf("cood : %3f, %3f, %3f", ball->b_cood[x], ball->b_cood[y], ball->b_cood[z]);
+	//printf("cood : %3f, %3f, %3f", ball->b_cood[x], ball->b_cood[y], ball->b_cood[z]);
 
-	printf("\n");
+	//printf("\n");
 }
 //Ball‚Ì•`‰æ
 void drawBall(Ball ball) {
@@ -180,15 +180,19 @@ void setFlatWall(float *s_cood, float *e_cood, float e, flatWall *wall) {
 	wall->w_center[y] = (wall->w_cood[start][y] + wall->w_cood[end][y]) / 2;
 	wall->w_center[z] = (wall->w_cood[start][z] + wall->w_cood[end][z]) / 2;
 	wall->w_length = dintancePoints(s_cood, e_cood, 3);
-	wall->w_phi = flatPhi(s_cood, e_cood);
+	wall->w_phi = flatPhi(s_cood, e_cood) * 180 / M_PI;
 }
 //flatWall‚Ì•`‰æ
 void drawFlatWall(flatWall wall) {
 	glPushMatrix();
 	glTranslatef(wall.w_center[x], wall.w_center[y], wall.w_center[z]);
+	//printf("center = (%3f, %3f, %3f)\t",wall.w_center[x], wall.w_center[y], wall.w_center[z]);
+	glRotatef(wall.w_phi, 0.0, 0.0, 1.0);//2“_‚Æ²‚ª‚È‚·Šp‚ğİ’è‚µ‚Ä‰ñ“](y)
+	//printf("phi = %3f", wall.w_phi);
 	glScalef(1.0, wall.w_length, 1.0);//‚ ‚é²‚É‚Â‚¢‚Älength‚¾‚¯ˆø‚«‰„‚Î‚·
-	glRotatef(wall.w_phi, 0.0, 1.0, 0.0);//2“_‚Æ²‚ª‚È‚·Šp‚ğİ’è‚µ‚Ä‰ñ“](y)
+	//printf("length  = %3f", wall.w_length);
 	glutSolidCube(WALL_WIDTH);
 	glPopMatrix();
+	//printf("\n");
 }
 

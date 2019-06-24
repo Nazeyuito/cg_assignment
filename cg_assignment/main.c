@@ -44,11 +44,10 @@ void setShade(float *diffuse, float *specular, float *ambient, float shininess) 
 Stage stage;
 flatWall wall;
 Ball ball;
-flatWall wall;
 
 void setWalls() {
-	float s_cood[] = { -10.0,0.0,0.0 };
-	float e_cood[] = { 10.0,0.0,0.0 };
+	float s_cood[] = { -5.0,10.0,0.0 };
+	float e_cood[] = { -5.0,5.0,0.0 };
 	float e = 1.0;
 	setFlatWall(s_cood, e_cood, e, &wall);
 }
