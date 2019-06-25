@@ -54,48 +54,39 @@ void drawStage(Stage stage) {
 
 //É{Å[Éã
 //for test
-float collision(float cood, float range, int param) {
-	//printf("coll");
-	switch (param)
-	{
-	case min:
-		if (cood < range)
-			return range;
-		else
-			return cood;
-		break;
-	case max:
-		if (cood > range)
-			return range;
-		else
-			return cood;
-		break;
-	default:
-		break;
-	}
-	return 0;
+float collision(float cood, float range, int param, flatWall wall) {
+	return 0.0;
 }
 
 //for reflection
-void reflection(float *ref, float b_cood, float b_speed, float *range, float e) {
+float refSpeed(float b_cood, float b_speed, float *range, float e){
 	if ((b_cood + b_speed) < range[min]) {
 		//printf("min : %3f %3f %3f", b_cood, b_speed, range[min]);
-		ref[speed] = -b_speed * e;
-		ref[cood] = range[min] - (b_speed*e);
-		return;
+		 return -b_speed * e;
 	}
 	else if ((b_cood + b_speed) > range[max]) {
-		//printf("max : %3f %3f %3f", b_cood, b_speed, range[max]);
-		ref[speed] = -b_speed * e;
-		ref[cood] = range[max] - (b_speed*e);
-		return;
+		return -b_speed * e;
 	}
 	else {
-		ref[speed] = b_speed;
-		ref[cood] = b_cood + b_speed;
+		return b_speed;
 	}
-	return;
+	return 0.0;
 }
+
+float refCood(float b_cood, float b_speed, float *range, float e){
+	if ((b_cood + b_speed) < range[min]) {
+		//printf("min : %3f %3f %3f", b_cood, b_speed, range[min]);
+		return range[min] - (b_speed*e);
+	}
+	else if ((b_cood + b_speed) > range[max]) {
+		return range[max] - (b_speed*e);
+	}
+	else {
+		return b_cood + b_speed;
+	}
+	return 0.0;
+}
+
 //BallÇÃèâä˙ê›íË
 void setBall(float *cood, float diag, float mass, float *speed, float*nxtcood, Ball *ball) {
 	ball->b_cood[x] = cood[x]; ball->b_cood[y] = cood[y]; ball->b_cood[z] = cood[z];
@@ -117,13 +108,10 @@ void updateBall(float *view, Ball *ball, Stage stage) {
 	ball->b_speed[z] = 0.0;
 	//printf("speed : %3f, %3f, %3f\t", ball->b_speed[x], ball->b_speed[y], ball->b_speed[z]);
 
-	float ref[2] = { 0.0,0.0 };
-	reflection(ref, ball->b_cood[x], ball->b_speed[x], range[x], stage.e);
-	ball->b_nxtcood[x] = ref[cood]; ball->b_speed[x] = ref[speed];
-	reflection(ref, ball->b_cood[y], ball->b_speed[y], range[y], stage.e);
-	ball->b_nxtcood[y] = ref[cood]; ball->b_speed[y] = ref[speed];
-	reflection(ref, ball->b_cood[z], ball->b_speed[z], range[z], stage.e);
-	ball->b_nxtcood[z] = ref[cood]; ball->b_speed[z] = ref[speed];
+	for (int i = 0; i < 3; i++) {
+		ball->b_nxtcood[i] = refCood(ball->b_cood[i], ball->b_speed[i], range[i], stage.e);
+		ball->b_speed[i] = refSpeed(ball->b_cood[i], ball->b_speed[i], range[i], stage.e);
+	}
 
 	ball->b_cood[x] = ball->b_nxtcood[x]; ball->b_cood[y] = ball->b_nxtcood[y]; ball->b_cood[z] = ball->b_nxtcood[z];
 	//printf("cood : %3f, %3f, %3f", ball->b_cood[x], ball->b_cood[y], ball->b_cood[z]);

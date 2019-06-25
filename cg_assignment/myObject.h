@@ -43,6 +43,18 @@ void setStage(float *size, float e, Stage *stage);
 //Stage‚Ì•`Ê
 void drawStage(Stage stage);
 
+typedef struct flatWall {
+	float w_cood[2][3];
+	float e;
+	float w_center[3];
+	float w_length;
+	float w_phi;
+}flatWall;
+//flatWall‚Ì‰Šúİ’è
+void setFlatWall(float *s_cood, float *e_cood, float e, flatWall *wall);
+//flatWall‚Ì•`‰æ
+void drawFlatWall(flatWall wall);
+
 //ƒ{[ƒ‹
 typedef struct Ball {
 	float b_cood[3];//ƒ{[ƒ‹‚ÌÀ•W
@@ -53,10 +65,11 @@ typedef struct Ball {
 }Ball;
 
 //for test
-float collision(float cood, float range, int param);
+float collision(float cood, float range, int param, flatWall wall);
 
 //for reflection
-void reflection(float *ref, float b_cood, float b_speed, float *range, float e);
+float refSpeed(float b_cood, float b_speed, float *range, float e);
+float refCood(float b_cood, float b_speed, float *range, float e);
 //Ball‚Ì‰Šúİ’è
 void setBall(float *cood, float diag, float mass, float *speed, float *nxtcood, Ball *ball);
 //Ball‚Ì‘JˆÚ
@@ -79,15 +92,5 @@ void stepWall(Wall *wall);
 //Wall‚Ì•`‰æ
 void drawWall(Wall wall);
 
-typedef struct flatWall {
-	float w_cood[2][3];
-	float e;
-	float w_center[3];
-	float w_length;
-	float w_phi;
-}flatWall;
-//flatWall‚Ì‰Šúİ’è
-void setFlatWall(float *s_cood, float *e_cood, float e, flatWall *wall);
-//flatWall‚Ì•`‰æ
-void drawFlatWall(flatWall wall);
+
 
